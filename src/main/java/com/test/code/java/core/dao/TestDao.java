@@ -16,11 +16,11 @@ public interface TestDao {
     @Select("SELECT t.id id,t.user_name userName ,t.user_id userId,t.role role,t.sex sex FROM t_financing_test t ")
     List<Test> queryTest();
 
-    String INSERT_TEST = "INSERT INTO `t_financing_test` (`user_name`, `user_id`,`created_by`) \n" +
-            "VALUES(#{userName},#{userId},#{createdBy})";
+    String INSERT_TEST = "INSERT INTO `t_financing_test` (`user_name`, `user_id`,`created_by`,created_at) \n" +
+            "VALUES(#{userName},#{userId},#{createdBy},#{createdAt})";
     @Insert(INSERT_TEST)
     int insertTest(@Param("userName") String userName, @Param("userId") String userId,
-                   @Param("createdBy") String createdBy);
+                   @Param("createdBy") String createdBy,@Param("createdAt") Date createdAt);
 
     String update_test = " UPDATE t_financing_test t SET t.created_by = #{createdBy} WHERE t.id = 414";
     @Update(update_test)

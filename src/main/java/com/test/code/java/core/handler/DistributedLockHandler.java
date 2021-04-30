@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class DistributedLockHandler {
+
     @Autowired
     private RedissonClient redissonClient;
 
@@ -22,7 +23,7 @@ public class DistributedLockHandler {
     }
 
     @Around("RlockAspect()")
-    public Object arround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object object = null;
         RLock lock = null;
         boolean status = false;

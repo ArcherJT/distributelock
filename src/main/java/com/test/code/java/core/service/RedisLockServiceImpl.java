@@ -59,7 +59,7 @@ public class RedisLockServiceImpl implements RedisLockService {
             }).start();
             // 阻塞等待解锁
             try {
-                countDownLatch.await(20,TimeUnit.SECONDS);
+                countDownLatch.await(2,TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -181,8 +181,11 @@ public class RedisLockServiceImpl implements RedisLockService {
     @Override
     @DistributedLock(localKey = "ticket-key",waitTimeOut = 10,timeUnit = TimeUnit.SECONDS)
     public void getTicket(int count) {
+        if(count <= 0){
+            return;
+        }
         System.out.println(Thread.currentThread().getName()+"卖了第"+count +"张");
         String name = "第"+count +"张";
-        testDao.insertTest(name,String.valueOf(count),name);
+        testDao.insertTest(name,String.valueOf(count),name,new Date());
     }
 }

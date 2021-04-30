@@ -1,6 +1,7 @@
 package com.test.code.java;
 
 import com.test.code.java.core.service.MultiThreadProxyHubApiTest;
+import com.test.code.java.core.service.RabbitMqService;
 import com.test.code.java.core.service.RedisLockService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ class JavaApplicationTests {
     @Autowired
     MultiThreadProxyHubApiTest multiThreadProxyHubApiTest;
 
+    @Autowired
+    RabbitMqService rabbitMqService;
 
     @Test
     void ticketTest() throws InterruptedException {
@@ -29,7 +32,9 @@ class JavaApplicationTests {
         thread3.start();
         thread4.start();
         Thread.currentThread().join();*/
+        
         multiThreadProxyHubApiTest.run();
+        rabbitMqService.sendDirectMsg("my first rabbitmq message");
     }
 
     public class TicketRunnable implements Runnable{
@@ -44,14 +49,15 @@ class JavaApplicationTests {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }finally {
-                    *//*if(count == 0){
+                    if(count == 0){
                         System.out.println(Thread.currentThread().getName()+"       停");
                         break;
-                    }*//*
+                    }
                     redisLockService.unlock();
 
                 }
             }*/
+
             while (count>0){
                 redisLockService.getTicket(count--);
             }

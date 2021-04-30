@@ -25,7 +25,7 @@ public class MultiThreadProxyHubApiTest {
     long firstExecTime = Long.MAX_VALUE;
     long lastDoneTime = Long.MIN_VALUE;
     float totalExecTime = 0;
-    int counts = 100000;
+    int counts = 100;
 
 /*    public static void main(String[] args) {
         new MultiThreadProxyHubApiTest().run();
